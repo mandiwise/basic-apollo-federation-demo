@@ -56,7 +56,7 @@ const resolvers = {
 
 (async () => {
   const server = new ApolloServer({
-    schema: buildFederatedSchema([{ typeDefs, resolvers }]),
+    schema: buildFederatedSchema([{ typeDefs, resolvers }])
   });
 
   const { url } = await server.listen({ port });
