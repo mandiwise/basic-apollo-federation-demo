@@ -6,15 +6,15 @@ const port = 4000;
 const gateway = new ApolloGateway({
   serviceList: [
     { name: "people", url: "http://localhost:4001" },
-    { name: "films", url: "http://localhost:4002" }
-  ]
+    { name: "films", url: "http://localhost:4002" },
+  ],
 });
 
 const server = new ApolloServer({
   gateway,
-  subscriptions: false
+  subscriptions: false,
 });
 
-server.listen({ port }, () =>
-  console.log(`Server ready at http://localhost:${port}${server.graphqlPath}`)
-);
+server.listen({ port }).then(({ url }) => {
+  console.log(`Server ready at ${url}`);
+});
