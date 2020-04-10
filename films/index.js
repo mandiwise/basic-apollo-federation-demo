@@ -32,7 +32,7 @@ const resolvers = {
     },
     director(film) {
       return { __typename: "Person", id: film.director };
-    }
+    },
   },
   Person: {
     appearedIn(person) {
@@ -42,7 +42,7 @@ const resolvers = {
     },
     directed(person) {
       return films.filter((film) => film.director === person.id);
-    }
+    },
   },
   Query: {
     film(_, { id }) {
@@ -50,15 +50,14 @@ const resolvers = {
     },
     films() {
       return films;
-    }
-  }
+    },
+  },
 };
 
-(async () => {
-  const server = new ApolloServer({
-    schema: buildFederatedSchema([{ typeDefs, resolvers }])
-  });
+const server = new ApolloServer({
+  schema: buildFederatedSchema([{ typeDefs, resolvers }]),
+});
 
-  const { url } = await server.listen({ port });
+server.listen({ port }).then(({ url }) => {
   console.log(`Films service ready at ${url}`);
-})();
+});

@@ -29,15 +29,14 @@ const resolvers = {
     },
     people() {
       return people;
-    }
-  }
+    },
+  },
 };
 
-(async () => {
-  const server = new ApolloServer({
-    schema: buildFederatedSchema([{ typeDefs, resolvers }])
-  });
+const server = new ApolloServer({
+  schema: buildFederatedSchema([{ typeDefs, resolvers }]),
+});
 
-  const { url } = await server.listen({ port });
+server.listen({ port }).then(({ url }) => {
   console.log(`People service ready at ${url}`);
-})();
+});
